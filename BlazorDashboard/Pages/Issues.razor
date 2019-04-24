@@ -1,0 +1,81 @@
+@page "/issues"
+
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+@using BlazorDashboard.Shared.IssuesRenderers
+@using Telerik.Blazor.Components.Grid
+@using Telerik.Blazor.Components.Window
+@using Telerik.Blazor.Components.Button
+
+<div class="issues">
+	<TelerikGrid Data="@GridData" Pageable="true" PageSize="15" Sortable="true" Height="800">
+		<RowTemplate Context="issue">
+			<td>
+				#@issue.Id
+			</td>
+			<td>
+				<span class="issue-status @(issue.IsOpen ? "issue-open" : "issue-closed")"></span>
+				@issue.Title
+			</td>
+			<td>
+				<LabelsList CurrIssue="@issue"></LabelsList>
+			</td>
+			<td>
+				<span style="color: @(LabelColors.GetColor(@issue.Type.ToString())) ;">@issue.Type</span>
+			</td>
+			<td>
+				<span style="color: @(LabelColors.GetColor(@issue.Severity.ToString())) ;">@issue.Severity</span>
+			</td>
+			<td>
+				<TelerikButton OnClick="@(() => { currIssue = issue; ShowDetailsWindow(); })"
+							   Icon="@Telerik.Blazor.IconName.Information">Details</TelerikButton>
+			</td>
+		</RowTemplate>
+		<TelerikGridColumns>
+			<TelerikGridColumn Field="@(nameof(Issue.Id))" Title="ID" Width="120" />
+			<TelerikGridColumn Field="@(nameof(Issue.Title))" Title="Issue Title" />
+			<TelerikGridColumn Field="@(nameof(Issue.Labels))" Title="Labels" />
+			<TelerikGridColumn Field="@(nameof(Issue.Type))" Title="Type" />
+			<TelerikGridColumn Field="@(nameof(Issue.Severity))" Title="Severity" />
+			<TelerikGridColumn Width="120" Title="Details" />
+		</TelerikGridColumns>
+	</TelerikGrid>
+</div>
+
+<TelerikWindow Centered="true" Width="650" Height="450" ref="@detailsWindow">
+	<TelerikWindowTitle>Issue Details - #@currIssue?.Id</TelerikWindowTitle>
+	<TelerikWindowActions>
+		<TelerikWindowAction Name="Minimize"></TelerikWindowAction>
+		<TelerikWindowAction Name="Maximize"></TelerikWindowAction>
+		<TelerikWindowAction Name="Close"></TelerikWindowAction>
+	</TelerikWindowActions>
+	<TelerikWindowContent>
+		<IssueDetails CurrIssue="@currIssue"></IssueDetails>
+	</TelerikWindowContent>
+</TelerikWindow>
+
+
+@functions {
+	public IEnumerable<Issue> GridData;
+	Telerik.Blazor.Components.Window.TelerikWindow detailsWindow;
+	Issue currIssue;
+
+	protected override async Task OnInitAsync()
+	{
+		await LoadIssuesData();
+	}
+
+	private async Task LoadIssuesData()
+	{
+		GridData = await IssuesGenerator.GetIssues(DateTime.Now.AddMonths(-2));
+	}
+
+	void ShowDetailsWindow()
+	{
+		detailsWindow.Open();
+		if (detailsWindow.Minimized)
+		{
+			detailsWindow.Restore();
+		}
+	}
+}

@@ -1,0 +1,38 @@
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+@using Telerik.Blazor.Components.Chart
+@using Telerik.Blazor
+
+<TelerikChart>
+	<TelerikChartSeriesItems>
+		<TelerikChartSeries Type="ChartSeriesType.Column" Name="Active Issues" Data="@ChartData" Gap="0.5" Color="@SeriesColor"
+							Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+		</TelerikChartSeries>
+	</TelerikChartSeriesItems>
+
+    <TelerikChartCategoryAxes>
+        <TelerikChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Days" Type="ChartCategoryAxisType.Date">
+			<TelerikChartCategoryAxisLabels Step="5" Font="10px sans-serif" Format="{0:dd MMM}"></TelerikChartCategoryAxisLabels>
+			<TelerikChartCategoryAxisMajorGridLines Visible="false"></TelerikChartCategoryAxisMajorGridLines>
+			<TelerikChartCategoryAxisMinorGridLines Visible="false"></TelerikChartCategoryAxisMinorGridLines>
+		</TelerikChartCategoryAxis>
+    </TelerikChartCategoryAxes>
+
+	<TelerikChartValueAxes>
+		<TelerikChartValueAxis Visible="false">
+			<TelerikChartValueAxisMajorGridLines Visible="false"></TelerikChartValueAxisMajorGridLines>
+		</TelerikChartValueAxis>
+	</TelerikChartValueAxes>
+
+
+    <TelerikChartLegend Visible="false">
+    </TelerikChartLegend>
+</TelerikChart>
+
+
+@functions {
+		[Parameter]
+		private IEnumerable<Issue> ChartData { get; set; }
+		[Parameter]
+		private string SeriesColor {get;set;}
+}

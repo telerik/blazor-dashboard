@@ -1,0 +1,52 @@
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+@using Telerik.Blazor.Components.Chart
+@using Telerik.Blazor
+
+<TelerikChart>
+	<TelerikChartSeriesItems>
+		<TelerikChartSeries Type="ChartSeriesType.Line" Name="Enhancements" Data="@(IssuesFilter.GetEnhancements(Issues))" Style="ChartSeriesStyle.Smooth"
+							Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+			<TelerikChartSeriesMarkers Visible="false"></TelerikChartSeriesMarkers>
+		</TelerikChartSeries>
+		<TelerikChartSeries Type="ChartSeriesType.Line" Name="Features" Data="@(IssuesFilter.GetFeatures(Issues))" Style="ChartSeriesStyle.Smooth"
+							Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+			<TelerikChartSeriesMarkers Visible="false"></TelerikChartSeriesMarkers>
+		</TelerikChartSeries>
+		<TelerikChartSeries Type="ChartSeriesType.Line" Name="SEV: Low" Data="@(IssuesFilter.GetLowSevBugs(Issues))" Style="ChartSeriesStyle.Smooth"
+							Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+			<TelerikChartSeriesMarkers Visible="false"></TelerikChartSeriesMarkers>
+		</TelerikChartSeries>
+		<TelerikChartSeries Type="ChartSeriesType.Line" Name="SEV: Medium" Data="@(IssuesFilter.GetMedSevBugs(Issues))" Style="ChartSeriesStyle.Smooth"
+							Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+			<TelerikChartSeriesMarkers Visible="false"></TelerikChartSeriesMarkers>
+		</TelerikChartSeries>
+		<TelerikChartSeries Type="ChartSeriesType.Line" Name="SEV: High" Data="@(IssuesFilter.GetHighSevBugs(Issues))" Style="ChartSeriesStyle.Smooth"
+							Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+			<TelerikChartSeriesMarkers Visible="false"></TelerikChartSeriesMarkers>
+		</TelerikChartSeries>
+	</TelerikChartSeriesItems>
+
+	<TelerikChartCategoryAxes>
+		<TelerikChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Weeks" Type="ChartCategoryAxisType.Date">
+			<TelerikChartCategoryAxisLabels Format="{0:dd MMM}"></TelerikChartCategoryAxisLabels>
+			<TelerikChartCategoryAxisMajorGridLines Visible="false"></TelerikChartCategoryAxisMajorGridLines>
+			<TelerikChartCategoryAxisMinorGridLines Visible="false"></TelerikChartCategoryAxisMinorGridLines>
+		</TelerikChartCategoryAxis>
+	</TelerikChartCategoryAxes>
+
+	<TelerikChartValueAxes>
+		<TelerikChartValueAxis>
+			<TelerikChartValueAxisMinorGridLines Visible="false"></TelerikChartValueAxisMinorGridLines>
+		</TelerikChartValueAxis>
+	</TelerikChartValueAxes>
+
+	<TelerikChartLegend Position="ChartLegendPosition.Top">
+	</TelerikChartLegend>
+</TelerikChart>
+
+
+@functions {
+	[Parameter]
+	private IEnumerable<Issue> Issues { get; set; }
+}
