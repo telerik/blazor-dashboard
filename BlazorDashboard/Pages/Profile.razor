@@ -152,22 +152,12 @@
 
 
 @functions {
-	UserProfile user = new UserProfile()
-	{
-		Id = 5746515,
-		AvatarUrl = "https://avatars1.githubusercontent.com/u/5746515?v=4",
-		Company = "Progress Software",
-		PublicEmail = "",
-		Location = "",
-		Login = "marin-bratanov",
-		Name = "Marin Bratanov",
-		PrivateEmail = true
-	};
+	UserProfile user { get; set; }
 
-	//protected override async Task OnInitAsync()
-	//{
-	//	await LoadUser();
-	//}
+	protected override async Task OnInitAsync()
+	{
+		await LoadUser();
+	}
 
 	private async Task LoadUser()
 	{
