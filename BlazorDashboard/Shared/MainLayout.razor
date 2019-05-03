@@ -16,7 +16,7 @@
 			<p class="h4 mt-5">Project</p>
 			<ul class="nav nav-pills flex-column">
 				<li class="nav-item" id="dashbaord">
-					<NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Dashboard</NavLink>
+					<NavLink class="@(IsAtRoot() ? "nav-link active" : "nav-link")" href="dashboard">Dashboard</NavLink>
 				</li>
 				<li class="nav-item" id="issues">
 					<NavLink class="nav-link" href="issues">Issues</NavLink>
@@ -35,7 +35,7 @@
 			<div id="copy">
 				<p>
 					Copyright
-					@copyRightSymbol
+					&copy;
 					@DateTime.Now.Year,<br /><a href="http://www.progress.com">Progress Software Corporation</a> and/or its subsidiaries or affiliates.
 				</p>
 				<p>All Rights Reserved.</p>
@@ -56,8 +56,6 @@
 		expandNavMenu = !expandNavMenu;
 	}
 
-	MarkupString copyRightSymbol = new MarkupString("&copy;");
-
 	bool IsNavAllowed()
 	{
 		string currUrl = UriHelper.GetAbsoluteUri();
@@ -66,5 +64,15 @@
 			return false;
 		}
 		return true;
+	}
+
+	bool IsAtRoot()
+	{
+		string currUrl = UriHelper.GetAbsoluteUri();
+		if (currUrl.EndsWith("/") || currUrl.EndsWith("/dashboard"))
+		{
+			return true;
+		}
+		return false;
 	}
 }
