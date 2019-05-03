@@ -16,7 +16,7 @@
 			<p class="h4 mt-5">Project</p>
 			<ul class="nav nav-pills flex-column">
 				<li class="nav-item" id="dashbaord">
-					<NavLink class="nav-link" href="dashboard">Dashboard</NavLink>
+					<NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Dashboard</NavLink>
 				</li>
 				<li class="nav-item" id="issues">
 					<NavLink class="nav-link" href="issues">Issues</NavLink>
@@ -58,7 +58,7 @@
 	bool IsNavAllowed()
 	{
 		string currUrl = UriHelper.GetAbsoluteUri();
-		if (currUrl.EndsWith("/") || currUrl.EndsWith("signin"))
+		if (currUrl.EndsWith("signin"))
 		{
 			return false;
 		}
