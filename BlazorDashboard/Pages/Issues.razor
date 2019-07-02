@@ -42,7 +42,7 @@
 	</TelerikGrid>
 </div>
 
-<TelerikWindow Centered="true" Width="650" Height="450" ref="@detailsWindow">
+<TelerikWindow Centered="true" Width="650" Height="450" @ref="detailsWindow">
 	<TelerikWindowTitle>Issue Details - #@currIssue?.Id</TelerikWindowTitle>
 	<TelerikWindowActions>
 		<TelerikWindowAction Name="Minimize"></TelerikWindowAction>

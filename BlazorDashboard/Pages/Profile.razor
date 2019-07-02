@@ -37,27 +37,27 @@
 							<EditForm Model="@user" OnValidSubmit="@OnUpdateClick">
 								<DataAnnotationsValidator />
 								<div class="form-group">
-									<TelerikTextBox bind-Value="@user.Login" Label="User Name" />
+									<TelerikTextBox @bind-Value="user.Login" Label="User Name" />
 									<ValidationMessage For="@(() => user.Login)"></ValidationMessage>
 								</div>
 								<div class="form-group">
-									<TelerikTextBox bind-Value="@user.Name" Label="Real Name" />
+									<TelerikTextBox @bind-Value="user.Name" Label="Real Name" />
 									<ValidationMessage For="@(() => user.Name)"></ValidationMessage>
 								</div>
 								<div class="form-group">
-									<TelerikTextBox bind-Value="@user.PublicEmail" Label="Email" />
+									<TelerikTextBox @bind-Value="user.PublicEmail" Label="Email" />
 									<ValidationMessage For="@(() => user.PublicEmail)"></ValidationMessage>
 								</div>
 								<div class="form-group">
 									<label class="form-check-label h6">
-										<InputCheckbox bind-Value="@user.PrivateEmail" /> Keep my email address private
+										<InputCheckbox @bind-Value="user.PrivateEmail" /> Keep my email address private
 									</label>
 								</div>
 								<div class="form-group">
-									<TelerikTextBox bind-Value="@user.Company" Label="Company" />
+									<TelerikTextBox @bind-Value="user.Company" Label="Company" />
 								</div>
 								<div class="form-group">
-									<TelerikTextBox bind-Value="@user.Location" Label="Location" />
+									<TelerikTextBox @bind-Value="user.Location" Label="Location" />
 								</div>
 								<div class="form-group">
 									<TelerikButton Primary="true">Update profile</TelerikButton>
@@ -140,7 +140,7 @@
 		</TelerikWindowActions>
 		<TelerikWindowTitle>Are you sure you want to do this?</TelerikWindowTitle>
 		<TelerikWindowContent>
-			<p>Account deletetion cannot be undone!</p>
+			<p>Account deletion cannot be undone!</p>
 			<div>
 				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="floatButton50">Cancel</TelerikButton>
 				<TelerikButton OnClick="@DeleteAccount" Primary="true" Class="floatButton50">Delete Account</TelerikButton>
