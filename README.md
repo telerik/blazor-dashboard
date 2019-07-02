@@ -19,6 +19,8 @@ To run this app locally, you need:
 * Visual Studio 2019 Preview
 * Node.js
 
+If you don't have a commercial license for UI for Blazor, [start a trial](https://www.telerik.com/download-trial-file/v2-b/ui-for-blazor) and replace the package reference with `Telerik.UI.for.Blazor.Trial`.
+
 ### One-time Installation
 
 While the compiled CSS is commited in the repo and the app can run as-is, if you want to run the tasks yourself, you need to perform the procedure below. Alternatively, remove `gulpfile.js` and `package.json` from the project.
