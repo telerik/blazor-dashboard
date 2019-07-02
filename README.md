@@ -15,7 +15,7 @@ This sample application showcases how easy it is to plug the Telerik Blazor comp
 
 To run this app locally, you need:
 
-* .NET Core 3 Preview 4
+* .NET Core 3 Preview 6
 * Visual Studio 2019 Preview
 * Node.js
 

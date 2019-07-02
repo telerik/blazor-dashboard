@@ -1,28 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RestoreAdditionalProjectSources>
-      https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json;
-      https://dotnet.myget.org/F/blazor-dev/api/v3/index.json;
-    </RestoreAdditionalProjectSources>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <RazorLangVersion>3.0</RazorLangVersion>
-	<BlazorLinkOnBuild>false</BlazorLinkOnBuild>
-    <Authors>Progress Software</Authors>
-    <Company>Progress Software</Company>
-    <Description>A sample application that demonstrates how you can plug the Telerik Blazor UI components into a complex layout and application.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="sass\styles.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview4-19216-03" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview4-19216-03" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview4-19216-03" PrivateAssets="all" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="1.0.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
