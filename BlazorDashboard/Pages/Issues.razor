@@ -1,5 +1,7 @@
 @page "/issues"
 
+@inject IssuesGenerator IssuesGeneratorService
+
 @using BlazorDashboard.Models
 @using BlazorDashboard.DataRetrieval
 @using BlazorDashboard.Shared.IssuesRenderers
@@ -67,7 +69,7 @@
 
 	private async Task LoadIssuesData()
 	{
-		GridData = await IssuesGenerator.GetIssues(DateTime.Now.AddMonths(-2));
+		GridData = await IssuesGeneratorService.GetIssues(DateTime.Now.AddMonths(-2));
 	}
 
 	void ShowDetailsWindow()

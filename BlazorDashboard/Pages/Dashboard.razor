@@ -1,6 +1,7 @@
 @page "/"
 @page "/dashboard"
 
+@inject IssuesGenerator IssuesGeneratorService
 @implements IDisposable
 
 @using BlazorDashboard.Models
@@ -154,7 +155,7 @@
 
 	private async Task LoadIssuesData()
 	{
-		IssuesList = await IssuesGenerator.GetIssues(IssuesFilter.GetRangeFromNumber(timeRange));
+		IssuesList = await IssuesGeneratorService.GetIssues(IssuesFilter.GetRangeFromNumber(timeRange));
 		OpenIssues = IssuesFilter.GetOpenIssues(IssuesList);
 		ClosedIssues = IssuesFilter.GetClosedIssues(IssuesList);
 
