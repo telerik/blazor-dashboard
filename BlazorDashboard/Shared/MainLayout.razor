@@ -75,4 +75,15 @@
 		}
 		return false;
 	}
+
+	protected override void OnInit()
+	{
+		UriHelper.OnLocationChanged += OnLocationChanges;
+	}
+
+	private void OnLocationChanges(object sender, LocationChangedEventArgs args)
+	{
+		expandNavMenu = false;
+		StateHasChanged();
+	}
 }
