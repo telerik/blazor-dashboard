@@ -10,20 +10,21 @@ namespace BlazorDashboard.DataRetrieval
 	{
 		public static async Task<IEnumerable<Issue>> GetIssues(DateTime timeRange)
 		{
-			//in a real case this can be asynchronouse and would be calling an actual data endpoint. Here, we generate data "randomly"
+			//in a real case this can be asynchronous and would be calling an actual data endpoint. Here, we generate data "randomly"
 
 			DateTime currTime = DateTime.Now;
 			int daysToGenerateIssueFor = ((TimeSpan)(currTime - timeRange)).Days;
 			List<Issue> issueList = new List<Issue>();
+            int issueId = 0;
 
-			for (int i = daysToGenerateIssueFor; i >= 0; i--)
+            for (int i = daysToGenerateIssueFor; i >= 0; i--)
 			{
 				for (int j = 0; j < rand.Next(1, 4); j++)
 				{
 					Issue currIssue = new Issue();
 
-					currIssue.Id = daysToGenerateIssueFor - i;
-					currIssue.Title = _dummyTitle.Substring(rand.Next(5, _dummyTitle.Length)) + currIssue.Id;
+                    currIssue.Id = ++issueId;
+                    currIssue.Title = _dummyTitle.Substring(rand.Next(5, _dummyTitle.Length)) + currIssue.Id;
 					currIssue.CreatedOn = currTime.AddDays(-i);
 					if (rand.Next(0, 10) % rand.Next(1, 4) == 0)
 					{
