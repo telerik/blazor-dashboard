@@ -20,7 +20,8 @@
 			</h2>
 		</div>
 		<div class="col-sm text-sm-right">
-			<TelerikDropDownList Data="@DateFilterData" TextField="Text" ValueField="Value" @bind-Value="timeRange" PopupHeight="120">
+			<TelerikDropDownList Data="@DateFilterData" TextField="Text" ValueField="Value" Value="timeRange"
+                                 ValueChanged="@( (int v) => LoadIssuesData() )" PopupHeight="120">
 			</TelerikDropDownList>
 		</div>
 	</div>
@@ -97,78 +98,71 @@
 </div>
 
 @code {
-	IEnumerable<Issue> IssuesList { get; set; } = new List<Issue>();
-	IEnumerable<Issue> OpenIssues { get; set; } = new List<Issue>();
-	IEnumerable<Issue> ClosedIssues { get; set; } = new List<Issue>();
+    IEnumerable<Issue> IssuesList { get; set; } = new List<Issue>();
+    IEnumerable<Issue> OpenIssues { get; set; } = new List<Issue>();
+    IEnumerable<Issue> ClosedIssues { get; set; } = new List<Issue>();
 
-	CancellationTokenSource stopTimer;
+    CancellationTokenSource stopTimer;
 
-	List<DateFilterModel> DateFilterData;
+    List<DateFilterModel> DateFilterData;
 
-	private int _timeRange { get; set; }
-	int timeRange
-	{
-		get
-		{
-			return _timeRange;
-		}
-		set
-		{
-			_timeRange = value;
+    int timeRange { get; set; }
 
-			LoadIssuesData();
-		}
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        DateFilterData = IssuesFilter.GetTimeRangeFilterValues();
 
-	protected override async Task OnInitializedAsync()
-	{
-		DateFilterData = IssuesFilter.GetTimeRangeFilterValues();
+        await LoadIssuesData();
+    }
 
-		await LoadIssuesData();
-	}
+    public void Dispose()
+    {
+        StopTimer();
+    }
 
-	public void Dispose()
-	{
-		StopTimer();
-	}
+    private async Task LoadDataOnInterval()
+    {
+        StopTimer();
+        stopTimer = new CancellationTokenSource();
 
-	private async Task LoadDataOnInterval()
-	{
-		StopTimer();
-		stopTimer = new CancellationTokenSource();
+        while (IssuesFilter.ShouldForceGeneration(timeRange))
+        {
+            await Task.Delay(10000, stopTimer.Token);
+            await LoadIssuesData();
+            StateHasChanged();
+        }
+    }
 
-		while (IssuesFilter.ShouldForceGeneration(timeRange))
-		{
-			await Task.Delay(10000, stopTimer.Token);
-			await LoadIssuesData();
-			StateHasChanged();
-		}
-	}
+    public void StopTimer()
+    {
+        if (stopTimer != null)
+        {
+            stopTimer.Cancel();
+        }
+    }
 
-	public void StopTimer()
-	{
-		if (stopTimer != null)
-		{
-			stopTimer.Cancel();
-		}
-	}
+    private async Task LoadIssuesData(int newTimeRange)
+    {
+        timeRange = newTimeRange;
+        await LoadIssuesData();
+    }
 
-	private async Task LoadIssuesData()
-	{
-		IssuesList = await IssuesGeneratorService.GetIssues(IssuesFilter.GetRangeFromNumber(timeRange));
-		OpenIssues = IssuesFilter.GetOpenIssues(IssuesList);
-		ClosedIssues = IssuesFilter.GetClosedIssues(IssuesList);
+    private async Task LoadIssuesData()
+    {
+        IssuesList = await IssuesGeneratorService.GetIssues(IssuesFilter.GetRangeFromNumber(timeRange));
+        OpenIssues = IssuesFilter.GetOpenIssues(IssuesList);
+        ClosedIssues = IssuesFilter.GetClosedIssues(IssuesList);
 
-		StateHasChanged();
+        StateHasChanged();
 
-		await LoadDataOnInterval();
+        await LoadDataOnInterval();
 
-		StateHasChanged();
-	}
+        StateHasChanged();
+    }
 
-	private MarkupString GetCloseRate()
-	{
-		double rate = ((double)ClosedIssues.Count() / (double)IssuesList.Count());
-		return new MarkupString(string.Format("{0:P0}", rate));
-	}
+    private MarkupString GetCloseRate()
+    {
+        double rate = ((double)ClosedIssues.Count() / (double)IssuesList.Count());
+        return new MarkupString(string.Format("{0:P0}", rate));
+    }
 }
