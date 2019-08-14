@@ -21,7 +21,7 @@
 		</div>
 		<div class="col-sm text-sm-right">
 			<TelerikDropDownList Data="@DateFilterData" TextField="Text" ValueField="Value" Value="timeRange"
-                                 ValueChanged="@( (int v) => LoadIssuesData() )" PopupHeight="120">
+                                 ValueChanged="@( (int v) => LoadIssuesData(v) )" PopupHeight="120">
 			</TelerikDropDownList>
 		</div>
 	</div>
