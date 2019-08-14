@@ -1,61 +1,60 @@
 @using BlazorDashboard.Models
-@using BlazorDashboard.DataRetrieval
-
-@functions {
-	[Parameter]
-	private Issue CurrIssue { get; set; }
-}
 
 @if (CurrIssue != null)
 {
-	<div class="row my-4">
-		<div class="col-sm-12">
-			<span class="badge @(CurrIssue.IsOpen ? " badge-success" : " badge-danger")">
-				@(CurrIssue.IsOpen ? "Open" : "Closed")
-			</span>
-			<h3 class="h1">
-				@CurrIssue.Title
-				<span class="text-muted">#@CurrIssue.Id</span>
-			</h3>
-		</div>
-	</div>
-	<div class="row my-4">
-		<div class="col-sm-2">
-			<span class="small d-block text-muted">Created on</span>
-			@CurrIssue.CreatedOn.ToString("dd MMMM yyyy")
-		</div>
-		@if (CurrIssue.ClosedOn.HasValue)
-		{
-			<div class="col-sm-2">
-				<span class="small d-block text-muted">Closed on</span>
-				@CurrIssue.ClosedOn.Value.ToString("dd MMMM yyyy")
-			</div>
-		}
-		<div class="col-sm-2">
-			<span class="small d-block text-muted">Type</span>
-			@CurrIssue.Type
-		</div>
-		<div class="col-sm-2">
-			<span class="small d-block text-muted">Severity</span>
-			@CurrIssue.Severity
-		</div>
-	</div>
-	<div class="row my-4">
-		<div class="col-sm-2">
-			<h4 class="small text-muted">Labels</h4>
-			<LabelsList CurrIssue="@CurrIssue"></LabelsList>
-		</div>
-		<div class="col-sm-8">
-			<h4 class="small text-muted">Description</h4>
-			<div>
-				@(new MarkupString(CurrIssue.Description))
-			</div>
-		</div>
-	</div>
+    <div class="row my-4">
+        <div class="col-sm-12">
+            <span class="badge @(CurrIssue.IsOpen ? " badge-success" : " badge-danger")">
+                @(CurrIssue.IsOpen ? "Open" : "Closed")
+            </span>
+            <h3 class="h1">
+                @CurrIssue.Title
+                <span class="text-muted">#@CurrIssue.Id</span>
+            </h3>
+        </div>
+    </div>
+    <div class="row my-4">
+        <div class="col-sm-2">
+            <span class="small d-block text-muted">Created on</span>
+            @CurrIssue.CreatedOn.ToString("dd MMMM yyyy")
+        </div>
+        @if (CurrIssue.ClosedOn.HasValue)
+        {
+            <div class="col-sm-2">
+                <span class="small d-block text-muted">Closed on</span>
+                @CurrIssue.ClosedOn.Value.ToString("dd MMMM yyyy")
+            </div>
+        }
+        <div class="col-sm-2">
+            <span class="small d-block text-muted">Type</span>
+            @CurrIssue.Type
+        </div>
+        <div class="col-sm-2">
+            <span class="small d-block text-muted">Severity</span>
+            @CurrIssue.Severity
+        </div>
+    </div>
+    <div class="row my-4">
+        <div class="col-sm-2">
+            <h4 class="small text-muted">Labels</h4>
+            <LabelsList CurrIssue="@CurrIssue"></LabelsList>
+        </div>
+        <div class="col-sm-8">
+            <h4 class="small text-muted">Description</h4>
+            <div>
+                @(new MarkupString(CurrIssue.Description))
+            </div>
+        </div>
+    </div>
 }
 else
 {
-	<div class="alert alert-primary" role="alert">
-		Please select an issue to see its details.
-	</div>
+    <div class="alert alert-primary" role="alert">
+        Please select an issue to see its details.
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Issue CurrIssue { get; set; }
 }

@@ -96,7 +96,7 @@
 	</div>
 </div>
 
-@functions {
+@code {
 	IEnumerable<Issue> IssuesList { get; set; } = new List<Issue>();
 	IEnumerable<Issue> OpenIssues { get; set; } = new List<Issue>();
 	IEnumerable<Issue> ClosedIssues { get; set; } = new List<Issue>();
@@ -120,7 +120,7 @@
 		}
 	}
 
-	protected override async Task OnInitAsync()
+	protected override async Task OnInitializedAsync()
 	{
 		DateFilterData = IssuesFilter.GetTimeRangeFilterValues();
 

@@ -51,7 +51,7 @@
 	</div>
 </TelerikRootComponent>
 
-@functions {
+@code {
 	bool expandNavMenu = false;
 
 	void ToggleNavMenu()
@@ -79,7 +79,7 @@
 		return false;
 	}
 
-	protected override void OnInit()
+	protected override void OnInitialize()
 	{
 		UriHelper.OnLocationChanged += OnLocationChanges;
 	}

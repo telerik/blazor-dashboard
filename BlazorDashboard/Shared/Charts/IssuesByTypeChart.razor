@@ -16,9 +16,9 @@
 </TelerikChart>
 
 
-@functions {
+@code {
 	[Parameter]
-	private IEnumerable<Issue> Issues { get; set; }
+	public IEnumerable<Issue> Issues { get; set; }
 
 	private List<IssuesByTypeChartModel> ChartData = new List<IssuesByTypeChartModel>();
 

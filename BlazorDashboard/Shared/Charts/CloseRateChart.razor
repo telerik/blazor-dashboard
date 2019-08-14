@@ -27,11 +27,11 @@
 </TelerikChart>
 
 
-@functions {
+@code {
 	[Parameter]
-	private int Open { get; set; }
+	public int Open { get; set; }
 	[Parameter]
-	private int Closed { get; set; }
+	public int Closed { get; set; }
 
 	private List<object> open = new List<object>();
 	private List<object> closed = new List<object>();
