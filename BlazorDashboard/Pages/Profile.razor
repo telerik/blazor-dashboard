@@ -4,7 +4,7 @@
 @using Telerik.Blazor.Components.TextBox
 @using Telerik.Blazor.Components.Window
 @using Telerik.Blazor
-@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 
 @if (user != null)
@@ -198,6 +198,6 @@
 
 	void GoToLogin()
 	{
-		UriHelper.NavigateTo("signin");
+		navigationManager.NavigateTo("signin");
 	}
 }

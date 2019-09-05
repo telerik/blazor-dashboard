@@ -1,5 +1,5 @@
 @inherits LayoutComponentBase
-@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 @using Telerik.Blazor.Components.RootComponent
 
 <TelerikRootComponent>
@@ -61,7 +61,7 @@
 
 	bool IsNavAllowed()
 	{
-		string currUrl = UriHelper.GetAbsoluteUri();
+		string currUrl = navigationManager.Uri; 
 		if (currUrl.EndsWith("signin"))
 		{
 			return false;
@@ -71,7 +71,7 @@
 
 	bool IsAtRoot()
 	{
-		string currUrl = UriHelper.GetAbsoluteUri();
+		string currUrl = navigationManager.Uri;
 		if (currUrl.EndsWith("/") || currUrl.EndsWith("/dashboard"))
 		{
 			return true;
@@ -81,7 +81,7 @@
 
 	protected override void OnInitialized()
 	{
-		UriHelper.OnLocationChanged += OnLocationChanges;
+		navigationManager.LocationChanged += OnLocationChanges;
 	}
 
 	private void OnLocationChanges(object sender, LocationChangedEventArgs args)

@@ -2,7 +2,7 @@
 
 @using Telerik.Blazor.Components.Button
 
-@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <div id="signin" class="signin">
 	<div class="signin-form p-5">
@@ -29,6 +29,6 @@
 @code {
 	void OnLoginClick()
 	{
-		UriHelper.NavigateTo("dashboard");
+		navigationManager.NavigateTo("dashboard");
 	}
 }
