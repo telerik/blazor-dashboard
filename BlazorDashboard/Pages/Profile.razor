@@ -1,9 +1,5 @@
 @page "/profile"
 @using BlazorDashboard.Models
-@using Telerik.Blazor.Components.Button
-@using Telerik.Blazor.Components.TextBox
-@using Telerik.Blazor.Components.Window
-@using Telerik.Blazor
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 
@@ -126,26 +122,26 @@
 	</div>
 
 
-	<TelerikWindow Size="@Size.Small" Modal="true" Centered="true" Visible="@visibleSuccesWindow">
-		<TelerikWindowTitle>Thank you!</TelerikWindowTitle>
-		<TelerikWindowContent>
+	<TelerikWindow Size="@WindowSize.Small" Modal="true"  @bind-Visible="@visibleSuccesWindow">
+		<WindowTitle>Thank you!</WindowTitle>
+		<WindowContent>
 			<p>Your profile has been successfully updated.</p>
 			<TelerikButton OnClick="@( () => visibleSuccesWindow = false )" Primary="true" Class="btn-block">OK</TelerikButton>
-		</TelerikWindowContent>
+		</WindowContent>
 	</TelerikWindow>
 
-	<TelerikWindow Width="450" Modal="true" Centered="true" Visible="@visibleDeleteWindow">
-		<TelerikWindowActions>
-			<TelerikWindowAction Name="Close"></TelerikWindowAction>
-		</TelerikWindowActions>
-		<TelerikWindowTitle>Are you sure you want to do this?</TelerikWindowTitle>
-		<TelerikWindowContent>
+	<TelerikWindow Width="450" Modal="true" Centered="true" @bind-Visible="@visibleDeleteWindow">
+		<WindowActions>
+			<WindowAction Name="Close"></WindowAction>
+		</WindowActions>
+		<WindowTitle>Are you sure you want to do this?</WindowTitle>
+		<WindowContent>
 			<p>Account deletion cannot be undone!</p>
 			<div>
 				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="floatButton50">Cancel</TelerikButton>
 				<TelerikButton OnClick="@DeleteAccount" Primary="true" Class="floatButton50">Delete Account</TelerikButton>
 			</div>
-		</TelerikWindowContent>
+		</WindowContent>
 	</TelerikWindow>
 }
 

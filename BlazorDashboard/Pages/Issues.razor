@@ -5,9 +5,6 @@
 @using BlazorDashboard.Models
 @using BlazorDashboard.DataRetrieval
 @using BlazorDashboard.Shared.IssuesRenderers
-@using Telerik.Blazor.Components.Grid
-@using Telerik.Blazor.Components.Window
-@using Telerik.Blazor.Components.Button
 
 <div class="issues">
 	<TelerikGrid Data="@GridData" Pageable="true" PageSize="15" Sortable="true" Height="800px">
@@ -33,52 +30,50 @@
 							   Icon="@Telerik.Blazor.IconName.Information">Details</TelerikButton>
 			</td>
 		</RowTemplate>
-		<TelerikGridColumns>
-			<TelerikGridColumn Field="@(nameof(Issue.Id))" Title="ID" Width="120" />
-			<TelerikGridColumn Field="@(nameof(Issue.Title))" Title="Issue Title" />
-			<TelerikGridColumn Field="@(nameof(Issue.Labels))" Title="Labels" />
-			<TelerikGridColumn Field="@(nameof(Issue.Type))" Title="Type" />
-			<TelerikGridColumn Field="@(nameof(Issue.Severity))" Title="Severity" />
-			<TelerikGridColumn Width="120" Title="Details" />
-		</TelerikGridColumns>
+		<GridColumns>
+			<GridColumn Field="@(nameof(Issue.Id))" Title="ID" Width="120" />
+			<GridColumn Field="@(nameof(Issue.Title))" Title="Issue Title" />
+			<GridColumn Field="@(nameof(Issue.Labels))" Title="Labels" />
+			<GridColumn Field="@(nameof(Issue.Type))" Title="Type" />
+			<GridColumn Field="@(nameof(Issue.Severity))" Title="Severity" />
+			<GridColumn Width="120" Title="Details" />
+		</GridColumns>
 	</TelerikGrid>
 </div>
 
-<TelerikWindow Centered="true" Width="650" Height="450" @ref="detailsWindow">
-	<TelerikWindowTitle>Issue Details - #@currIssue?.Id</TelerikWindowTitle>
-	<TelerikWindowActions>
-		<TelerikWindowAction Name="Minimize"></TelerikWindowAction>
-		<TelerikWindowAction Name="Maximize"></TelerikWindowAction>
-		<TelerikWindowAction Name="Close"></TelerikWindowAction>
-	</TelerikWindowActions>
-	<TelerikWindowContent>
+<TelerikWindow Width="650" Height="450" @bind-State="@DetailsWindowState" @bind-Visible="DetailsWindowVisible">
+	<WindowTitle>Issue Details - #@currIssue?.Id</WindowTitle>
+	<WindowActions>
+		<WindowAction Name="Minimize"></WindowAction>
+		<WindowAction Name="Maximize"></WindowAction>
+		<WindowAction Name="Close"></WindowAction>
+	</WindowActions>
+	<WindowContent>
 		<IssueDetails CurrIssue="@currIssue"></IssueDetails>
-	</TelerikWindowContent>
+	</WindowContent>
 </TelerikWindow>
 
 
 @code {
-	public IEnumerable<Issue> GridData;
-    Telerik.Blazor.Components.Window.TelerikWindow detailsWindow;
+    public IEnumerable<Issue> GridData;
+    WindowState DetailsWindowState { get; set; } = WindowState.Default;
+    bool DetailsWindowVisible { get; set; }
 
-	Issue currIssue;
+    Issue currIssue;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await LoadIssuesData();
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadIssuesData();
+    }
 
-	private async Task LoadIssuesData()
-	{
-		GridData = await IssuesGeneratorService.GetIssues(DateTime.Now.AddMonths(-2));
-	}
+    private async Task LoadIssuesData()
+    {
+        GridData = await IssuesGeneratorService.GetIssues(DateTime.Now.AddMonths(-2));
+    }
 
-	void ShowDetailsWindow()
-	{
-		detailsWindow.Open();
-		if (detailsWindow.Minimized)
-		{
-			detailsWindow.Restore();
-		}
-	}
+    void ShowDetailsWindow()
+    {
+        DetailsWindowState = WindowState.Default;
+        DetailsWindowVisible = true;
+    }
 }

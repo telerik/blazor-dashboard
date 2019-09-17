@@ -1,35 +1,33 @@
 @using BlazorDashboard.Models
 @using BlazorDashboard.DataRetrieval
-@using Telerik.Blazor.Components.Chart
-@using Telerik.Blazor
 
 	<TelerikChart>
-		<TelerikChartSeriesItems>
-			<TelerikChartSeries Type="ChartSeriesType.Column" Name="Closed Issues" Data="@(Data.Where(x => x.IsOpen == false))" Color="#27c46d" Gap="0.6"
+		<ChartSeriesItems>
+			<ChartSeries Type="ChartSeriesType.Column" Name="Closed Issues" Data="@(Data.Where(x => x.IsOpen == false))" Color="#27c46d" Gap="0.6"
 								Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
-				<TelerikChartSeriesStack Enabled="true"></TelerikChartSeriesStack>
-			</TelerikChartSeries>
-			<TelerikChartSeries Type="ChartSeriesType.Column" Name="Open Issues" Data="@(Data.Where(x => x.IsOpen == true))" Color="#CF3268"
+				<ChartSeriesStack Enabled="true" />
+			</ChartSeries>
+			<ChartSeries Type="ChartSeriesType.Column" Name="Open Issues" Data="@(Data.Where(x => x.IsOpen == true))" Color="#CF3268"
 								Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
-			</TelerikChartSeries>
-		</TelerikChartSeriesItems>
+			</ChartSeries>
+		</ChartSeriesItems>
 
-		<TelerikChartCategoryAxes>
-			<TelerikChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Fit" Type="ChartCategoryAxisType.Date">
-				<TelerikChartCategoryAxisLabels Format="{0:dd MMM}"></TelerikChartCategoryAxisLabels>
-				<TelerikChartCategoryAxisMajorGridLines Visible="false"></TelerikChartCategoryAxisMajorGridLines>
-				<TelerikChartCategoryAxisMinorGridLines Visible="false"></TelerikChartCategoryAxisMinorGridLines>
-			</TelerikChartCategoryAxis>
-		</TelerikChartCategoryAxes>
+		<ChartCategoryAxes>
+			<ChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Fit" Type="ChartCategoryAxisType.Date">
+				<ChartCategoryAxisLabels Format="{0:dd MMM}"></ChartCategoryAxisLabels>
+				<ChartCategoryAxisMajorGridLines Visible="false"></ChartCategoryAxisMajorGridLines>
+				<ChartCategoryAxisMinorGridLines Visible="false"></ChartCategoryAxisMinorGridLines>
+			</ChartCategoryAxis>
+		</ChartCategoryAxes>
 
-		<TelerikChartValueAxes>
-			<TelerikChartValueAxis>
-				<TelerikChartValueAxisMinorGridLines Visible="false"></TelerikChartValueAxisMinorGridLines>
-			</TelerikChartValueAxis>
-		</TelerikChartValueAxes>
+		<ChartValueAxes>
+			<ChartValueAxis>
+				<ChartValueAxisMinorGridLines Visible="false"></ChartValueAxisMinorGridLines>
+			</ChartValueAxis>
+		</ChartValueAxes>
 
-		<TelerikChartLegend Visible="false">
-		</TelerikChartLegend>
+		<ChartLegend Visible="false">
+		</ChartLegend>
 	</TelerikChart>
 
 

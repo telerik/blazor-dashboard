@@ -1,7 +1,5 @@
 @page "/signin"
 
-@using Telerik.Blazor.Components.Button
-
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <div id="signin" class="signin">
@@ -21,7 +19,7 @@
 			</p>
 		</div>
 		<div class="form-group">
-			<TelerikButton Class="k-primary form-control" OnClick="@OnLoginClick" Icon="@Telerik.Blazor.IconName.Login">Log in</TelerikButton>
+			<TelerikButton Class="k-primary form-control" OnClick="@OnLoginClick" Icon="@IconName.Login">Log in</TelerikButton>
 		</div>
 	</div>
 </div>

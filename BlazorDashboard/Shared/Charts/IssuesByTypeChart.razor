@@ -1,18 +1,16 @@
 @using BlazorDashboard.Models
 @using BlazorDashboard.DataRetrieval
-@using Telerik.Blazor.Components.Chart
-@using Telerik.Blazor
 
 <TelerikChart>
-	<TelerikChartSeriesItems>
-		<TelerikChartSeries Type="ChartSeriesType.Donut" Data="@ChartData" HoleSize="60"
+	<ChartSeriesItems>
+		<ChartSeries Type="ChartSeriesType.Donut" Data="@ChartData" HoleSize="60"
 							Field="@nameof(IssuesByTypeChartModel.IssueCount)" CategoryField="@nameof(IssuesByTypeChartModel.CategoryName)">
-			<TelerikChartSeriesLabels Visible="true" Position="ChartSeriesLabelsPosition.Center" Template="#=Math.round(percentage * 100)#%" Background="transparent"></TelerikChartSeriesLabels>
-		</TelerikChartSeries>
-	</TelerikChartSeriesItems>
+			<ChartSeriesLabels Visible="true" Position="ChartSeriesLabelsPosition.Center" Template="#=Math.round(percentage * 100)#%" Background="transparent"></ChartSeriesLabels>
+		</ChartSeries>
+	</ChartSeriesItems>
 
-	<TelerikChartLegend Position="ChartLegendPosition.Bottom">
-	</TelerikChartLegend>
+	<ChartLegend Position="ChartLegendPosition.Bottom">
+	</ChartLegend>
 </TelerikChart>
 
 
