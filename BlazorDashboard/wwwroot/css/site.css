@@ -116,25 +116,6 @@ app {
     color: red;
 }
 
-#blazor-error-ui {
-    background: lightyellow;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    display: none;
-    left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
-
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
-
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -179,4 +160,14 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+}
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    width: 30vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
 }

@@ -448,3 +448,12 @@ span.comp-label {
     }
 }
 
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    width: 30vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+}

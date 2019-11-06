@@ -7,59 +7,34 @@
 @using BlazorDashboard.Shared.IssuesRenderers
 
 <div class="issues">
-	<TelerikGrid Data="@GridData" Pageable="true" PageSize="15" Sortable="true" Height="800px">
-		<RowTemplate Context="issue">
-			<td>
-				#@issue.Id
-			</td>
-			<td>
-				<span class="issue-status @(issue.IsOpen ? "issue-open" : "issue-closed")"></span>
-				@issue.Title
-			</td>
-			<td>
-				<LabelsList CurrIssue="@issue"></LabelsList>
-			</td>
-			<td>
-				<span style="color: @(LabelColors.GetColor(@issue.Type.ToString())) ;">@issue.Type</span>
-			</td>
-			<td>
-				<span style="color: @(LabelColors.GetColor(@issue.Severity.ToString())) ;">@issue.Severity</span>
-			</td>
-			<td>
-				<TelerikButton OnClick="@(() => { currIssue = issue; ShowDetailsWindow(); })"
-							   Icon="@Telerik.Blazor.IconName.Information">Details</TelerikButton>
-			</td>
-		</RowTemplate>
-		<GridColumns>
-			<GridColumn Field="@(nameof(Issue.Id))" Title="ID" Width="120" />
-			<GridColumn Field="@(nameof(Issue.Title))" Title="Issue Title" />
-			<GridColumn Field="@(nameof(Issue.Labels))" Title="Labels" />
-			<GridColumn Field="@(nameof(Issue.Type))" Title="Type" />
-			<GridColumn Field="@(nameof(Issue.Severity))" Title="Severity" />
-			<GridColumn Width="120" Title="Details" />
-		</GridColumns>
-	</TelerikGrid>
+    <TelerikGrid Data="@GridData" Pageable="true" PageSize="15" Sortable="true" Height="800px"
+                 Reorderable="true" Resizable="true" Groupable="true" FilterMode="GridFilterMode.FilterMenu">
+        <GridColumns>
+            <GridColumn Field="@(nameof(Issue.Id))" Title="ID" Width="80px" Groupable="false" />
+            <GridColumn Field="@(nameof(Issue.IsOpen))" Title="Open" Width="120px">
+                <Template>
+                    @{
+                        Issue issue = context as Issue;
+                        <span class="issue-status @(issue.IsOpen ? "issue-open" : "issue-closed")"></span>
+                        @(issue.IsOpen ? "open" : "closed")
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@(nameof(Issue.Title))" Title="Issue Title" Groupable="false" />
+            <GridColumn Field="@(nameof(Issue.CreatedOn))" Title="Created On" />
+            <GridColumn Field="@(nameof(Issue.ClosedOn))" Title="Closed On" />
+        </GridColumns>
+        <DetailTemplate>
+            @{
+                Issue issue = context as Issue;
+                <IssueDetails CurrIssue="@issue"></IssueDetails>
+            }
+        </DetailTemplate>
+    </TelerikGrid>
 </div>
-
-<TelerikWindow Width="650" Height="450" @bind-State="@DetailsWindowState" @bind-Visible="DetailsWindowVisible">
-	<WindowTitle>Issue Details - #@currIssue?.Id</WindowTitle>
-	<WindowActions>
-		<WindowAction Name="Minimize"></WindowAction>
-		<WindowAction Name="Maximize"></WindowAction>
-		<WindowAction Name="Close"></WindowAction>
-	</WindowActions>
-	<WindowContent>
-		<IssueDetails CurrIssue="@currIssue"></IssueDetails>
-	</WindowContent>
-</TelerikWindow>
-
 
 @code {
     public IEnumerable<Issue> GridData;
-    WindowState DetailsWindowState { get; set; } = WindowState.Default;
-    bool DetailsWindowVisible { get; set; }
-
-    Issue currIssue;
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,11 +44,5 @@
     private async Task LoadIssuesData()
     {
         GridData = await IssuesGeneratorService.GetIssues(DateTime.Now.AddMonths(-2));
-    }
-
-    void ShowDetailsWindow()
-    {
-        DetailsWindowState = WindowState.Default;
-        DetailsWindowVisible = true;
     }
 }

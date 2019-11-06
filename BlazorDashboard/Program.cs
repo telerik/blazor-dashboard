@@ -22,6 +22,7 @@ namespace BlazorDashboard
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true"); // detailed server errors from circuits
                     webBuilder.UseStartup<Startup>();
                 });
     }
