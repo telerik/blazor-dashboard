@@ -33,5 +33,5 @@ To build the dependencies, ensure you can build the SASS modules by:
 
 ### Usual Run
 
-1. open the `sln` file with VS 2019 Preview
+1. open the `sln` file with VS 2019
 1. press `F5`
