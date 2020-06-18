@@ -22,7 +22,7 @@ If you don't have a commercial license for UI for Blazor, [start a trial](https:
 
 ### One-time Installation
 
-While the compiled CSS is commited in the repo and the app can run as-is, if you want to run the tasks yourself, you need to perform the procedure below. Alternatively, remove `gulpfile.js` and `package.json` from the project.
+While the compiled CSS is committed in the repo and the app can run as-is, if you want to run the tasks yourself, you need to perform the procedure below. Alternatively, remove `gulpfile.js` and `package.json` from the project.
 
 To build the dependencies, ensure you can build the SASS modules by:
 
@@ -35,3 +35,12 @@ To build the dependencies, ensure you can build the SASS modules by:
 
 1. open the `sln` file with VS 2019
 1. press `F5`
+
+### Update Telerik Theme
+
+When you update the Telerik components, you may want to fetch the latest theme as well. To do that, execute the following in the shell:
+
+1. `npm install` - fetches the latest Theme from the Telerik package
+1. `npm run build:production` - runs the `gulp` task (see the `gulpfile.js`) that builds the Telerik Theme with the custom variables in the project, builds the rest of the styles of the app, and minifies them.
+
+
