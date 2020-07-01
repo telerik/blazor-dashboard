@@ -28,6 +28,14 @@
 
 		<ChartLegend Visible="false">
 		</ChartLegend>
+
+		<ChartTooltip Visible="true">
+			<Template>
+				@context.SeriesName
+				<br />
+                <strong>@context.FormattedValue</strong>
+			</Template>
+		</ChartTooltip>
 	</TelerikChart>
 
 
